@@ -19,14 +19,12 @@
 	var canvas = document.createElement("canvas");
 	var resW; //max=3968px
 	var resH; //max=2976px
-	let colorTemp;
+	var colorTemp;
 	var intervalID;
 	var dt;
 	var constraints;
 	var encoder;
 	var video = document.getElementsByTagName("video")[0];
-	alert(navigator.mediaDevices.getSupportedConstraints().colorTemperature);
-
 
 	function streaming() {
 		navigator.mediaDevices.getUserMedia(constraints)
