@@ -33,7 +33,7 @@
     	if (capabilities.torch) {
       		track.applyConstraints({
       			advanced: [{
-      				colorTemperature: {min: 6000, ideal: 7000}
+      				colorTemperature: {min: 6000}
       			}]
       		})
       	.catch(e => alert("err1"+e));
