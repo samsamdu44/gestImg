@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test012033</title>
+	<title>test012628</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -29,17 +29,6 @@
 	
 	var encoder;
 
-	function onCapabilitiesReady(capabilities) {
-    	if (capabilities.zoom) {
-      		track.applyConstraints({
-      			advanced: [{
-      				zoom: capabilities.zoom.max
-      			}]
-      		})
-      	.catch(e => alert("err1"+e));
-    	}
-  	}
-
 	function streaming() {
 		navigator.mediaDevices.getUserMedia({
 			video: {
@@ -56,6 +45,17 @@
       				onCapabilitiesReady(track.getCapabilities())
     			), 500);
  	 		});
+
+ 	 		function onCapabilitiesReady(capabilities) {
+    			if (capabilities.zoom) {
+      				track.applyConstraints({
+      				advanced: [{
+      					zoom: capabilities.zoom.max
+      					}]
+      				})
+      				.catch(e => alert("err1"+e));
+    			}
+  			}
 		})
 		.catch((err) => {
 	  		alert("err2"+err);
