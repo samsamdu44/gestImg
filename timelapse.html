@@ -7,7 +7,6 @@
 <body>
 	<video autoplay="true" style="border: 1px solid black;" width="496px" height="372px"></video>
 	<a></a>
-<!--	<input type="button" id="buttonPic" onclick="takePic()" value="Prendre une photo"></input>-->
 	<br>Temps entre images : <input type="text" id="dt" value="1000"/>
 	<br>FPS du timelapse : <input type="text" id="fps" value="10">
 	<br>Largeur : <input type="text" id="resW" value="1920">
@@ -38,16 +37,7 @@
 	  		alert(err);
 		});
 	}
-/*
-	function takePic() {
-		var ctx = canvas.getContext("2d");
-		ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-		var dataURI = canvas.toDataURL("image/jpeg");
-		document.getElementsByTagName("a")[0].href = dataURI;
-		document.getElementsByTagName("a")[0].download = "image.jpeg";
-		document.getElementsByTagName("a")[0].innerText = "Télécharger l'image";
-	}
-*/
+
 	function timelapse() {
 		fps = document.getElementById("fps").value;
 		dt = document.getElementById("dt").value;
@@ -59,7 +49,8 @@
 			video: {
 				facingMode: {exact: "environment" },
 				width: resW,
-				height: resH
+				height: resH,
+				colorTemperature: colorTemp
 			}
 		};
 		canvas.width = resW;
