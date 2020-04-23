@@ -29,20 +29,38 @@
 	
 	var encoder;
 
+	function onCapabilitiesReady(capabilities) {
+    	if (capabilities.torch) {
+      		track.applyConstraints({
+      			advanced: [{
+      				colorTemperature: {min: 6000, ideal: 7000}
+      			}]
+      		})
+      	.catch(e => alert(e));
+    	}
+  	}
+
 	function streaming() {
-		navigator.mediaDevices.getUserMedia({video: {
-				facingMode: {exact: "environment" },
+		navigator.mediaDevices.getUserMedia({
+			video: {
+				facingMode: "environment",
 				width: resW,
 				height: resH,
-			}})
-			.then(function(stream) {
+			}
+		})
+		.then((stream) => {
 			video.srcObject = stream;
 			const track = stream.getVideoTracks()[0];
-			alert(track.getCapabilities());
+			video.addEventListener('loadedmetadata', (e) => {  
+    		window.setTimeout(() => (
+      			onCapabilitiesReady(track.getCapabilities())
+    			), 500);
+ 	 		});
+
 			track.applyConstraints(constraints);
 			imageCapture = new ImageCapture(track);
 		})
-			.catch(function(err) {
+		.catch((err) => {
 	  		alert(err);
 	  		timelapseEnd();
 		});
