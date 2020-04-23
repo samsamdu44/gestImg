@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test013544</title>
+	<title>test013715</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -63,18 +63,18 @@
 	function timelapse() {
 		fps = document.getElementById("fps").value;
 		dt = document.getElementById("dt").value;
-		//colorTemp = document.getElementById("colorTemp").value;
+		colorTemp = document.getElementById("colorTemp").value;
 		
 		canvas.width = document.getElementById("resW").value;
 		canvas.height = document.getElementById("resH").value;
 		
 		streaming();
-		/*
+
 		encoder = new Whammy.Video(fps);
 		intervalID = setInterval(function() {
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);	
 			encoder.add(canvas);
-		}, dt);*/
+		}, dt);
 	}
 
 	function timelapseEnd() {
