@@ -16,20 +16,31 @@
 	<input type="button" id="timelapsePic" onclick="timelapseEnd()" value="Timelapse Fin"></input>
 	<script src="whammy.js"></script>
 	<script>
-	var canvas = document.createElement("canvas");
-	var resW; //max=3968px
-	var resH; //max=2976px
+	const video = document.getElementsByTagName("video")[0];
+	const canvas = document.createElement("canvas");
+	const ctx = canvas.getContext("2d");
+	var imageCapture;
+	
+	var constraints;
 	var colorTemp;
+	
 	var intervalID;
 	var dt;
-	var constraints;
+	
 	var encoder;
-	var video = document.getElementsByTagName("video")[0];
 
 	function streaming() {
-		navigator.mediaDevices.getUserMedia(constraints)
+		navigator.mediaDevices.getUserMedia({video: {
+				facingMode: {exact: "environment" },
+				width: resW,
+				height: resH,
+			}})
 			.then(function(stream) {
 			video.srcObject = stream;
+			const track = stream.getVideoTracks()[0];
+			track.applyConstraints(constraints);
+			imageCapture = new ImageCapture(track);
+
 		})
 			.catch(function(err) {
 	  		alert(err);
@@ -39,25 +50,18 @@
 	function timelapse() {
 		fps = document.getElementById("fps").value;
 		dt = document.getElementById("dt").value;
-		resW = document.getElementById("resW").value;
-		resH = document.getElementById("resH").value;
 		colorTemp = document.getElementById("colorTemp").value;
+		
+		canvas.width = document.getElementById("resW").value;
+		canvas.height = document.getElementById("resH").value;
+
 		constraints = {
-			audio: false,
-			video: {
-				facingMode: {exact: "environment" },
-				width: resW,
-				height: resH,
-			}
-			advanced: [{
-				colorTemperature: colorTemp
-			}]
-		};
-		canvas.width = resW;
-		canvas.height = resH;
+			advanced: [{colorTemperature : 4000}]
+		}
+		
 		streaming();
+
 		encoder = new Whammy.Video(fps);
-		var ctx = canvas.getContext("2d");
 		intervalID = setInterval(function() {
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);	
 			encoder.add(canvas);
