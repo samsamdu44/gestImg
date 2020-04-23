@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test014800</title>
+	<title>test014930</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -51,12 +51,16 @@
       					colorTemperature: colorTemp
       					}]
       				})
-      				.catch(e => alert("err1"+e));
+      				.catch((e => {
+      					alert("err1"+e)
+      					timelapseEnd();
+      				});
     			}
   			}
 		})
 		.catch((err) => {
 	  		alert("err2"+err);
+	  		timelapseEnd();
 		});
 	}
 
