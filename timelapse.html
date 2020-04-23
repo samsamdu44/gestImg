@@ -45,10 +45,10 @@
  	 		});
 
  	 		function onCapabilitiesReady(capabilities) {
-    			if (capabilities.zoom) {
+    			if (capabilities.colorTemperature) {
       				track.applyConstraints({
       				advanced: [{
-      					zoom: capabilities.zoom.max
+      					colorTemperature: capabilities.colorTemperature.max
       					}]
       				})
       				.catch(e => alert("err1"+e));
