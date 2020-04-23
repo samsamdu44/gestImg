@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test012628</title>
+	<title>test013544</title>
 	<meta charset="utf-8">
 </head>
 <body>
-	<video autoplay="true" style="border: 1px solid black;" width="496px" height="372px"></video>
+	<video style="border: 1px solid black;" width="496px" height="372px" autoplay></video>
 	<a></a>
 	<br>Temps entre images : <input type="text" id="dt" value="1000"/>
 	<br>FPS du timelapse : <input type="text" id="fps" value="10">
@@ -32,9 +32,7 @@
 	function streaming() {
 		navigator.mediaDevices.getUserMedia({
 			video: {
-				facingMode: "environment",
-				width: resW,
-				height: resH,
+				facingMode: "environment"
 			}
 		})
 		.then((stream) => {
@@ -59,25 +57,24 @@
 		})
 		.catch((err) => {
 	  		alert("err2"+err);
-	  		timelapseEnd();
 		});
 	}
 
 	function timelapse() {
 		fps = document.getElementById("fps").value;
 		dt = document.getElementById("dt").value;
-		colorTemp = document.getElementById("colorTemp").value;
+		//colorTemp = document.getElementById("colorTemp").value;
 		
 		canvas.width = document.getElementById("resW").value;
 		canvas.height = document.getElementById("resH").value;
 		
 		streaming();
-
+		/*
 		encoder = new Whammy.Video(fps);
 		intervalID = setInterval(function() {
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);	
 			encoder.add(canvas);
-		}, dt);
+		}, dt);*/
 	}
 
 	function timelapseEnd() {
