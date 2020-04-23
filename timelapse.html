@@ -30,10 +30,10 @@
 	var encoder;
 
 	function onCapabilitiesReady(capabilities) {
-    	if (capabilities.colorTemperature) {
+    	if (capabilities.zoom) {
       		track.applyConstraints({
       			advanced: [{
-      				colorTemperature: capabilities.colorTemperature.max
+      				zoom: capabilities.zoom.max
       			}]
       		})
       	.catch(e => alert("err1"+e));
@@ -52,8 +52,8 @@
 			video.srcObject = stream;
 			const track = stream.getVideoTracks()[0];
 			video.addEventListener('loadedmetadata', (e) => {  
-    		window.setTimeout(() => (
-      			onCapabilitiesReady(track.getCapabilities())
+    			window.setTimeout(() => (
+      				onCapabilitiesReady(track.getCapabilities())
     			), 500);
  	 		});
 		})
