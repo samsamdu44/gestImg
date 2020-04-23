@@ -38,12 +38,13 @@
 			.then(function(stream) {
 			video.srcObject = stream;
 			const track = stream.getVideoTracks()[0];
+			alert(track.getCapabilities());
 			track.applyConstraints(constraints);
 			imageCapture = new ImageCapture(track);
-
 		})
 			.catch(function(err) {
 	  		alert(err);
+	  		timelapseEnd();
 		});
 	}
 
