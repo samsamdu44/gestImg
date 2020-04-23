@@ -36,7 +36,7 @@
       				colorTemperature: {min: 6000, ideal: 7000}
       			}]
       		})
-      	.catch(e => alert(e));
+      	.catch(e => alert("err1"+e));
     	}
   	}
 
@@ -61,7 +61,7 @@
 			imageCapture = new ImageCapture(track);
 		})
 		.catch((err) => {
-	  		alert(err);
+	  		alert("err2"+err);
 	  		timelapseEnd();
 		});
 	}
@@ -93,7 +93,7 @@
 			document.getElementsByTagName("a")[0].innerText = "Télécharger la vidéo.";
 		}
 		catch (e) {
-			alert(e);
+			alert("err3"+e);
 		}
 	}
 </script>
