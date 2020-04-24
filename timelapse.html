@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test125049</title>
+	<title>test132030</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -96,12 +96,14 @@
 		
 		streaming();
 
+/*
 		encoder = new Whammy.Video(fps);
+
 		intervalID = setInterval(function() {
 			// Remplacer par https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture/takePhoto avec https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);	
 			encoder.add(canvas);
-		}, dt);
+		}, dt);*/
 	}
 
 	function timelapseEnd() {
@@ -114,8 +116,16 @@
 			document.getElementsByTagName("a")[0].innerText = "Télécharger la vidéo.";
 		}
 		catch (e) {
-			alert("err3"+e);
+			alert("err4"+e);
 		}
+	}
+	function takePhoto() {
+		  imageCapture.takePhoto()
+		  .then(blob => createImageBitmap(blob))
+		  .then(imageBitmap => {
+		  	ctx.drawImage(imageBitmap, 0, 0, canvas.width, canvas.height);	
+		  })
+		  .catch(e => alert("err3"+e));
 	}
 </script>
 </html>
