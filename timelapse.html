@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test205818</title>
+	<title>test211836</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -62,12 +62,6 @@
 			video.srcObject = stream;
 			video.addEventListener('loadedmetadata', (e) => {  
     			window.setTimeout(() => (
-      				onCapabilitiesReady(track.getCapabilities())
-    			), 500);
- 	 		});
-
- 	 		function onCapabilitiesReady(capabilities) {
-    			if (capabilities.colorTemperature) {
       				track.applyConstraints({
       				advanced: [{
       					whiteBalanceMode: document.getElementById("whiteBalMode").value,
@@ -84,9 +78,9 @@
       				.catch((e) => {
       					alert("err1"+e)
       					timelapseEnd();
-      				});
-    			}
-  			}
+      				})
+    			), 500);
+ 	 		});
 		})
 		.catch((err) => {
 	  		alert("err2"+err);
