@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test135154</title>
+	<title>test143313</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -12,10 +12,13 @@
 	<br>Largeur : <input type="text" id="resW" value="1920">
 	<br>Hauteur : <input type="text" id="resH" value="1080">
 	<br>Température de couleur : <input type="text" id="colorTemp" value="3000">
-	<br>Temps d'exposition : <input type="text" id="expoTime" value="6000">
-	<br>Compensation d'exposition : <input type="text" id="expoComp" value="-1.5">
-	<br>Distance de focus : <input type="text" id="focDist" value="100">
-	<br>Iso : <input type="text" id="isoVal" value="1000">
+	<br>Mode de balances des blancs : <input type="text" id="whiteBalMode" value="manual">
+	<br>Temps d'exposition : <input type="text" id="expoTime" value="10000">
+	<br>Mode d'exposition : <input type="text" id="expoMode" value="manual">
+	<br>Compensation d'exposition : <input type="text" id="expoComp" value="-2">
+	<br>Mode de focus : <input type="text" id="focMode" value="manual">
+	<br>Distance de focus : <input type="text" id="focDist" value="1000">
+	<br>Iso : <input type="text" id="isoVal" value="3200">
 	<br>Zoom : <input type="text" id="zoomVal" value="1">
 
 	<br><input type="button" id="timelapsePic" onclick="timelapse()" value="Lancer le stream"></input>
@@ -72,7 +75,9 @@
       					exposureTime: document.getElementById("expoTime").value,
       					focusDistance: document.getElementById("focDist").value,
       					iso: document.getElementById("isoVal").value,
-      					zoom: document.getElementById("zoomVal").value
+      					zoom: document.getElementById("zoomVal").value,
+      					exposureMode: document.getElementById("expoMode").value,
+      					focusMode: document.getElementById("focMode").value
       					}]
       				})
       				.catch((e) => {
