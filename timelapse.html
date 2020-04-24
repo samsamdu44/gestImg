@@ -11,19 +11,35 @@
 	<br>FPS du timelapse : <input type="text" id="fps" value="10">
 	<br>Largeur : <input type="text" id="resW" value="1920">
 	<br>Hauteur : <input type="text" id="resH" value="1080">
-	<br>Température : <input type="text" id="colorTemp" value="10000">
-	<br><input type="button" id="timelapsePic" onclick="timelapse()" value="Timelapse Début"></input>
-	<input type="button" id="timelapsePic" onclick="timelapseEnd()" value="Timelapse Fin"></input>
+	<br>Température de couleur : <input type="text" id="colorTemp" value="3000">
+	<br>Temps d'exposition : <input type="text" id="expoTime" value="6000">
+	<br>Compensation d'exposition : <input type="text" id="expoComp" value="-1.5">
+	<br>Distance de focus : <input type="text" id="focDist" value="100">
+	<br>Iso : <input type="text" id="isoVal" value="1000">
+	<br>Zoom : <input type="text" id="zoomVal" value="1">
+
+	<br><input type="button" id="timelapsePic" onclick="timelapse()" value="Lancer le stream"></input>
+	<input type="button" id="timelapsePic" onclick="timelapseEnd()" value="Couper le stream"></input>
 	<script src="whammy.js"></script>
 	<script>
+	// Constantes
 	const video = document.getElementsByTagName("video")[0];
 	const canvas = document.createElement("canvas");
 	const ctx = canvas.getContext("2d");
 	var imageCapture;
-	
-	var constraints;
-	var colorTemp;
-	
+
+	// Reglages photo
+	var colorTemp; //2850, 7000, 50
+	var expoComp; //-2, 2, 0.5
+	var expoTime; //1, 10000, 0
+	var expoMode; // "continuous", "manual"
+	var focDist; // 0.05, 9.2e20, 0.01
+	var focMode; // "manual", "singeshot", "continuous"
+	var isoVal; // 50, 3200, 1
+	var torch; // true, false
+	var whiteBalMode; // "continuous", "manual"
+	var zoomVal; // 1, 3.79, 0.1
+
 	var intervalID;
 	var dt;
 	
@@ -36,8 +52,9 @@
 			}
 		})
 		.then((stream) => {
-			video.srcObject = stream;
 			const track = stream.getVideoTracks()[0];
+			imageCapture = new ImageCapture(track);
+			video.srcObject = stream;
 			video.addEventListener('loadedmetadata', (e) => {  
     			window.setTimeout(() => (
       				onCapabilitiesReady(track.getCapabilities())
@@ -48,7 +65,8 @@
     			if (capabilities.colorTemperature) {
       				track.applyConstraints({
       				advanced: [{
-      					colorTemperature: colorTemp
+      					colorTemperature: document.getElementById("colorTemp").value,
+      					exposureCompensation: document.getElementById("expoComp").value
       					}]
       				})
       				.catch((e) => {
@@ -67,7 +85,6 @@
 	function timelapse() {
 		fps = document.getElementById("fps").value;
 		dt = document.getElementById("dt").value;
-		colorTemp = document.getElementById("colorTemp").value;
 		
 		canvas.width = document.getElementById("resW").value;
 		canvas.height = document.getElementById("resH").value;
@@ -76,6 +93,7 @@
 
 		encoder = new Whammy.Video(fps);
 		intervalID = setInterval(function() {
+			// Remplacer par https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture/takePhoto avec https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);	
 			encoder.add(canvas);
 		}, dt);
