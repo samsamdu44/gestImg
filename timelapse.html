@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test143313</title>
+	<title>test205448</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -70,14 +70,15 @@
     			if (capabilities.colorTemperature) {
       				track.applyConstraints({
       				advanced: [{
+      					whiteBalanceMode: document.getElementById("whiteBalMode").value,
       					colorTemperature: document.getElementById("colorTemp").value,
+      					exposureMode: document.getElementById("expoMode").value,
       					exposureCompensation: document.getElementById("expoComp").value,
       					exposureTime: document.getElementById("expoTime").value,
-      					focusDistance: document.getElementById("focDist").value,
+      					focusMode: document.getElementById("focMode").value
+						focusDistance: document.getElementById("focDist").value,
       					iso: document.getElementById("isoVal").value,
       					zoom: document.getElementById("zoomVal").value,
-      					exposureMode: document.getElementById("expoMode").value,
-      					focusMode: document.getElementById("focMode").value
       					}]
       				})
       				.catch((e) => {
