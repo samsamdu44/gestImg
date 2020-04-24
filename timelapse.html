@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test211836</title>
+	<title>test212733</title>
 	<meta charset="utf-8">
 </head>
 <body>
@@ -21,7 +21,8 @@
 	<br>Iso : <input type="text" id="isoVal" value="3200">
 	<br>Zoom : <input type="text" id="zoomVal" value="1">
 
-	<br><input type="button" id="timelapsePic" onclick="timelapse()" value="Lancer le stream"></input>
+<br><input type="button" id="timelapsePic" onclick="timelapse()" value="Lancer le stream"></input>
+	<input type="button" id="timelapsePic" onclick="majContrainte()" value="Appliquer les contraintes"></input>
 	<input type="button" id="timelapsePic" onclick="takePhoto()" value="Prendre une photo"></input>
 	<input type="button" id="timelapsePic" onclick="timelapseEnd()" value="Couper le stream"></input>
 	<script src="whammy.js"></script>
@@ -50,6 +51,26 @@
 	
 	var encoder;
 
+	function majContrainte() {
+		track.applyConstraints({
+      		advanced: [{
+      			whiteBalanceMode: document.getElementById("whiteBalMode").value,
+      			colorTemperature: document.getElementById("colorTemp").value,
+      			exposureMode: document.getElementById("expoMode").value,
+      			exposureCompensation: document.getElementById("expoComp").value,
+      			exposureTime: document.getElementById("expoTime").value,
+      			focusMode: document.getElementById("focMode").value,
+				focusDistance: document.getElementById("focDist").value,
+      			iso: document.getElementById("isoVal").value,
+      			zoom: document.getElementById("zoomVal").value
+      			}]
+      		})
+      		.catch((e) => {
+      			alert("err1"+e)
+      			timelapseEnd();
+      	})
+	}
+
 	function streaming() {
 		navigator.mediaDevices.getUserMedia({
 			video: {
@@ -60,27 +81,6 @@
 			const track = stream.getVideoTracks()[0];
 			imageCapture = new ImageCapture(track);
 			video.srcObject = stream;
-			video.addEventListener('loadedmetadata', (e) => {  
-    			window.setTimeout(() => (
-      				track.applyConstraints({
-      				advanced: [{
-      					whiteBalanceMode: document.getElementById("whiteBalMode").value,
-      					colorTemperature: document.getElementById("colorTemp").value,
-      					exposureMode: document.getElementById("expoMode").value,
-      					exposureCompensation: document.getElementById("expoComp").value,
-      					exposureTime: document.getElementById("expoTime").value,
-      					focusMode: document.getElementById("focMode").value,
-						focusDistance: document.getElementById("focDist").value,
-      					iso: document.getElementById("isoVal").value,
-      					zoom: document.getElementById("zoomVal").value
-      					}]
-      				})
-      				.catch((e) => {
-      					alert("err1"+e)
-      					timelapseEnd();
-      				})
-    			), 500);
- 	 		});
 		})
 		.catch((err) => {
 	  		alert("err2"+err);
